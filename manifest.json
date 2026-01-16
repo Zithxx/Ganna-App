@@ -1,0 +1,15 @@
+{
+  "name": "Ganna & Rodrigo App",
+  "short_name": "G&R App",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ff5aaf",
+  "theme_color": "#ff5aaf",
+  "icons": [
+    {
+      "src": "./apple-touch-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

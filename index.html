@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Ganna & Rodrigo App">
+    <title>Ganna & Rodrigo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css"/>
+</head>
+<body>
+    <div id="heart-container"></div>
+
+    <div id="lockout-screen" style="display:none; background: black; color: red; height: 100vh; width: 100vw; position: fixed; top:0; left:0; z-index: 9999; text-align: center; padding-top: 40vh; font-family: monospace;">
+        <h1>⚠️ INTRUDER ALERT ⚠️</h1>
+        <p>Fake Ganna detected. Aborting App...</p>
+    </div>
+
+    <div id="welcome-screen" class="main-card">
+        <h1>Hello Ganna!</h1>
+        <p style="color: white; font-style: italic;">I made something special for you...</p>
+        <button class="love-button" onclick="goToSecurity()">Start Here ❤️</button>
+    </div>
+
+    <div id="auth-screen" class="main-card" style="display: none;">
+        <h1 style="font-size: 3rem;">Security Test</h1>
+        <p id="question-text" style="color: white; margin-bottom: 10px;"></p>
+        <div id="answer-zone"></div>
+    </div>
+
+    <div id="app-dashboard" class="main-card" style="display: none;">
+        <h1>Our Place</h1>
+        <div class="menu-grid">
+            <button class="menu-item" onclick="openNotes()">📖 Notes</button>
+            <button class="menu-item">📸 Gallery</button>
+            <button class="menu-item">🗓️ Calendar</button>
+            <button class="menu-item">💖 Settings</button>
+        </div>
+    </div>
+
+    <div id="notes-screen" class="main-card" style="display: none;">
+        <h1>Ganna's Notes</h1>
+        <textarea id="note-input" placeholder="Write a memory..."></textarea>
+        <button class="love-button" onclick="saveNote()">Save Note</button>
+        <div id="notes-list"></div>
+        <button onclick="backToDashboard()" style="background:none; border:none; color:white; margin-top:20px; cursor:pointer;">← Back</button>
+    </div>
+
+    <script>
+        // NAVIGATION LOGIC
+        function goToSecurity() {
+            document.getElementById('welcome-screen').style.display = 'none';
+            document.getElementById('auth-screen').style.display = 'flex';
+            loadQuestion();
+        }
+
+        function unlockApp() {
+            document.getElementById('auth-screen').style.display = 'none';
+            document.getElementById('app-dashboard').style.display = 'flex';
+            for (let i = 0; i < 30; i++) { createHeart(); }
+        }
+
+        function openNotes() {
+            document.getElementById('app-dashboard').style.display = 'none';
+            document.getElementById('notes-screen').style.display = 'flex';
+            displayNotes();
+        }
+
+        function backToDashboard() {
+            document.getElementById('notes-screen').style.display = 'none';
+            document.getElementById('app-dashboard').style.display = 'flex';
+        }
+
+        // SECURITY LOGIC
+        const questions = [
+            { text: "Where was our very first date?", options: ["The Park", "The Coffee Shop", "The Beach"], correct: 2 },
+            { text: "What is the name of your Cat?", options: ["Pantufa", "Marik", "Kapusta"], correct: 1 }
+        ];
+
+        let currentStep = 0;
+
+        function loadQuestion() {
+            const questionText = document.getElementById('question-text');
+            const answerZone = document.getElementById('answer-zone');
+            answerZone.innerHTML = '';
+            const q = questions[currentStep];
+            questionText.innerHTML = q.text;
+
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'love-button';
+                btn.style.marginTop = "10px";
+                btn.innerHTML = opt;
+                btn.onclick = () => checkAnswer(index);
+                answerZone.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selectedIndex) {
+            if (selectedIndex === questions[currentStep].correct) {
+                currentStep++;
+                if (currentStep < questions.length) { loadQuestion(); } 
+                else { unlockApp(); }
+            } else {
+                document.getElementById('lockout-screen').style.display = 'block';
+            }
+        }
+
+        // HEART RAIN LOGIC
+        function createHeart() {
+            const container = document.getElementById('heart-container');
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.opacity = Math.random();
+            container.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+
+        // NOTES LOGIC
+        function saveNote() {
+            const input = document.getElementById('note-input');
+            const savedNotes = JSON.parse(localStorage.getItem('ganna_notes') || '[]');
+            if (input.value.trim() !== "") {
+                savedNotes.push(input.value);
+                localStorage.setItem('ganna_notes', JSON.stringify(savedNotes));
+                input.value = "";
+                displayNotes();
+            }
+        }
+
+        function displayNotes() {
+            const list = document.getElementById('notes-list');
+            const savedNotes = JSON.parse(localStorage.getItem('ganna_notes') || '[]');
+            list.innerHTML = savedNotes.map(note => `<div class="saved-note">${note}</div>`).join('');
+        }
+    </script>
+</body>
+</html>
