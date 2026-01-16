@@ -47,6 +47,18 @@
         <div id="notes-list"></div>
         <button onclick="backToDashboard()" style="background:none; border:none; color:white; margin-top:20px; cursor:pointer;">← Back</button>
     </div>
+    <div id="gallery-screen" class="main-card" style="display: none;">
+    <h1>Photos</h1>
+    
+    <div class="swipe-container">
+        <div class="swipe-item"><img src="Marik.jpg" alt="Marik"></div>
+        <div class="swipe-item"><img src="me.jpg" alt="Me"></div>
+    </div>
+    
+    <p style="color: white; font-size: 0.8rem; margin-top: 10px;">Swipe to see more →</p>
+    
+    <button onclick="backToDashboardFromGallery()" style="background:none; border:none; color:white; margin-top:20px; cursor:pointer;">← Back</button>
+</div>
 
     <script>
         // NAVIGATION LOGIC

@@ -174,3 +174,27 @@ h1 {
     color: #eee;
     border-left: 3px solid #ff75c3; /* A little pink accent */
 }
+#lockout-screen {
+    position: fixed; /* Fixes it to the screen */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    color: #ff0000;
+    z-index: 10000; /* Ensures it is on top of EVERYTHING */
+    display: none; /* Hidden by default */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace; /* Cleaner 'Hacker' font */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+#lockout-screen h1 {
+    font-family: 'Courier New', monospace; /* Overrides the Pinyon Script */
+    font-size: 2rem;
+    text-shadow: 0 0 10px red;
+    -webkit-text-stroke: 0px; /* Removes the script outline */
+}
