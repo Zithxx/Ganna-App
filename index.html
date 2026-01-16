@@ -60,8 +60,8 @@
 
     <div id="calendar-screen" class="main-card" style="display: none;">
         <h1>Special Day</h1>
-        <div id="countdown-box" style="margin: 20px 0;">
-            <h2 id="days-count" style="font-size: 4rem; color: #ff75c3; margin: 0;">0</h2>
+        <div id="countdown-box">
+            <h2 id="days-count">0</h2>
             <p style="color: white;">Days until our anniversary!</p>
         </div>
         <button onclick="backToDashboard('calendar-screen')" style="background:none; border:none; color:white; margin-top:20px; cursor:pointer;">← Back</button>
@@ -86,7 +86,7 @@
             document.getElementById('app-dashboard').style.display = 'flex';
         }
 
-        // ROOM SPECIFIC OPENERS
+        // ROOM OPENERS
         function openNotes() {
             document.getElementById('app-dashboard').style.display = 'none';
             document.getElementById('notes-screen').style.display = 'flex';
@@ -135,6 +135,7 @@
                 if (currentStep < questions.length) { loadQuestion(); } 
                 else { unlockApp(); }
             } else {
+                // Shows the lockout screen as a flex container
                 document.getElementById('lockout-screen').style.display = 'flex';
             }
         }
@@ -170,13 +171,13 @@
             list.innerHTML = savedNotes.map(note => `<div class="saved-note">${note}</div>`).join('');
         }
 
-        // COUNTDOWN LOGIC
+        // COUNTDOWN LOGIC (Set your date here)
         function calculateCountdown() {
             const anniversary = new Date(2026, 6, 20); // July 20, 2026
             const today = new Date();
             const diff = anniversary - today;
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            document.getElementById('days-count').innerHTML = days;
+            const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('days-count').innerHTML = days > 0 ? days : 0;
         }
     </script>
 </body>
