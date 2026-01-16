@@ -1,120 +1,78 @@
+/* --- GLOBAL STYLES --- */
 body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
+    background: linear-gradient(135deg, #ff75c3 0%, #3f2b96 100%);
     background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: sans-serif; 
-    background: linear-gradient(135deg, #ff75c3 0%, #3f2b96 100%);
+    font-family: sans-serif;
+    overflow-x: hidden;
 }
+
 .main-card {
-    background: rgba(255, 255, 255, 0.2); 
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px); 
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(20, 10, 30, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 25px;
     padding: 40px;
     width: 85%;
     max-width: 400px;
     text-align: center;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    background: rgba(0, 0, 0, 0.1); 
-    background: linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(0,0,0,0.1));
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
-    align-items: center;   
-    justify-content: center; 
-    gap: 20px;
-    background: rgba(20, 10, 30, 0.6); 
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
     animation: fadeIn 0.8s ease-in-out;
 }
 
-
-
 h1 {
     font-family: 'Pinyon Script', cursive;
-    font-size: 5rem; 
-    color: white;
+    font-size: 5rem;
+    color: #fff;
     margin: 0;
     line-height: 1.2;
-    text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3); 
-    -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.1);
+    text-shadow: 0 0 20px rgba(255, 117, 195, 0.8), 2px 2px 5px rgba(0,0,0,0.5);
     width: 100%;
     word-wrap: break-word;
-    transition: opacity 0.5s ease;
-    color: #fff;
-    text-shadow: 0 0 20px rgba(255, 117, 195, 0.8), 2px 2px 5px rgba(0,0,0,0.5);
-    
 }
+
+/* --- BUTTONS --- */
 .love-button {
-    margin-top: 25px;
+    margin-top: 15px;
     padding: 15px 30px;
     font-size: 1.1rem;
     font-weight: 600;
     color: white;
-    background: rgba(255, 255, 255, 0.3); 
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 50px; 
-    backdrop-filter: blur(5px);
-    cursor: pointer;
-    transition: all 0.3s ease; 
-    animation: pulse 2s infinite;
-    background: #ff75c3; 
+    background: #ff75c3;
     border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(255, 117, 195, 0.4);
+    animation: pulse 2s infinite;
 }
-
-
-@keyframes pulse {
-    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
-    70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
-}
-
 
 .love-button:active {
-    transform: scale(0.95); 
-    background: rgba(255, 255, 255, 0.5);
-}
-/* The container for the hearts */
-#heart-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* Allows her to still click through the hearts */
-    z-index: 999;
+    transform: scale(0.95);
+    background: #ff4da6;
 }
 
-/* The heart style */
-.heart {
-    position: absolute;
-    color: #ff75c3;
-    font-size: 20px;
-    user-select: none;
-    animation: fall linear forwards;
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 117, 195, 0.4); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 117, 195, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 117, 195, 0); }
 }
 
-@keyframes fall {
-    0% {
-        transform: translateY(-10vh) translateX(0) rotate(0deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(110vh) translateX(100px) rotate(360deg);
-        opacity: 0;
-    }
-}
+/* --- DASHBOARD GRID --- */
 .menu-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Two columns side-by-side */
+    grid-template-columns: 1fr 1fr;
     gap: 15px;
     margin-top: 20px;
     width: 100%;
@@ -135,15 +93,8 @@ h1 {
     background: #ff75c3;
     transform: scale(0.95);
 }
-#answer-zone {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+
+/* --- NOTES SCREEN --- */
 #note-input {
     width: 100%;
     height: 100px;
@@ -154,14 +105,14 @@ h1 {
     color: white;
     font-family: sans-serif;
     margin-bottom: 15px;
-    resize: none; /* Prevents the box from being resized manually */
+    resize: none;
 }
 
 #notes-list {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 10px;
     max-height: 200px;
-    overflow-y: auto; /* Adds a scrollbar if she has many notes */
+    overflow-y: auto;
 }
 
 .saved-note {
@@ -172,29 +123,93 @@ h1 {
     text-align: left;
     font-size: 0.9rem;
     color: #eee;
-    border-left: 3px solid #ff75c3; /* A little pink accent */
+    border-left: 3px solid #ff75c3;
 }
+
+/* --- GALLERY SLIDER --- */
+.swipe-container {
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 15px;
+    padding-bottom: 10px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.swipe-container::-webkit-scrollbar {
+    display: none;
+}
+
+.swipe-item {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+}
+
+.swipe-item img {
+    width: 100%;
+    border-radius: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* --- CALENDAR --- */
+#days-count {
+    text-shadow: 0 0 15px rgba(255, 117, 195, 0.7);
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+/* --- INTRUDER ALERT --- */
 #lockout-screen {
-    position: fixed; /* Fixes it to the screen */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
     background: #000;
     color: #ff0000;
-    z-index: 10000; /* Ensures it is on top of EVERYTHING */
-    display: none; /* Hidden by default */
+    z-index: 10000;
+    display: none; /* Controlled by JS */
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: 'Courier New', Courier, monospace; /* Cleaner 'Hacker' font */
+    font-family: 'Courier New', Courier, monospace;
     text-transform: uppercase;
     letter-spacing: 2px;
 }
 
 #lockout-screen h1 {
-    font-family: 'Courier New', monospace; /* Overrides the Pinyon Script */
+    font-family: 'Courier New', monospace;
     font-size: 2rem;
     text-shadow: 0 0 10px red;
-    -webkit-text-stroke: 0px; /* Removes the script outline */
+    -webkit-text-stroke: 0px;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#heart-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.heart {
+    position: absolute;
+    color: #ff75c3;
+    font-size: 20px;
+    user-select: none;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
 }

@@ -13,7 +13,7 @@
 <body>
     <div id="heart-container"></div>
 
-    <div id="lockout-screen" style="display:none; background: black; color: red; height: 100vh; width: 100vw; position: fixed; top:0; left:0; z-index: 9999; text-align: center; padding-top: 40vh; font-family: monospace;">
+    <div id="lockout-screen">
         <h1>⚠️ INTRUDER ALERT ⚠️</h1>
         <p>Fake Ganna detected. Aborting App...</p>
     </div>
@@ -34,8 +34,8 @@
         <h1>Our Place</h1>
         <div class="menu-grid">
             <button class="menu-item" onclick="openNotes()">📖 Notes</button>
-            <button class="menu-item">📸 Gallery</button>
-            <button class="menu-item">🗓️ Calendar</button>
+            <button class="menu-item" onclick="openGallery()">📸 Gallery</button>
+            <button class="menu-item" onclick="openCalendar()">🗓️ Calendar</button>
             <button class="menu-item">💖 Settings</button>
         </div>
     </div>
@@ -45,20 +45,27 @@
         <textarea id="note-input" placeholder="Write a memory..."></textarea>
         <button class="love-button" onclick="saveNote()">Save Note</button>
         <div id="notes-list"></div>
-        <button onclick="backToDashboard()" style="background:none; border:none; color:white; margin-top:20px; cursor:pointer;">← Back</button>
+        <button onclick="backToDashboard('notes-screen')" style="background:none; border:none; color:white; margin-top:20px; cursor:pointer;">← Back</button>
     </div>
+
     <div id="gallery-screen" class="main-card" style="display: none;">
-    <h1>Photos</h1>
-    
-    <div class="swipe-container">
-        <div class="swipe-item"><img src="Marik.jpg" alt="Marik"></div>
-        <div class="swipe-item"><img src="me.jpg" alt="Me"></div>
+        <h1>Photos</h1>
+        <div class="swipe-container">
+            <div class="swipe-item"><img src="Marik.jpg" alt="Marik"></div>
+            <div class="swipe-item"><img src="me.jpg" alt="Me"></div>
+        </div>
+        <p style="color: white; font-size: 0.8rem; margin-top: 10px;">Swipe to see more →</p>
+        <button onclick="backToDashboard('gallery-screen')" style="background:none; border:none; color:white; margin-top:20px; cursor:pointer;">← Back</button>
     </div>
-    
-    <p style="color: white; font-size: 0.8rem; margin-top: 10px;">Swipe to see more →</p>
-    
-    <button onclick="backToDashboardFromGallery()" style="background:none; border:none; color:white; margin-top:20px; cursor:pointer;">← Back</button>
-</div>
+
+    <div id="calendar-screen" class="main-card" style="display: none;">
+        <h1>Special Day</h1>
+        <div id="countdown-box" style="margin: 20px 0;">
+            <h2 id="days-count" style="font-size: 4rem; color: #ff75c3; margin: 0;">0</h2>
+            <p style="color: white;">Days until our anniversary!</p>
+        </div>
+        <button onclick="backToDashboard('calendar-screen')" style="background:none; border:none; color:white; margin-top:20px; cursor:pointer;">← Back</button>
+    </div>
 
     <script>
         // NAVIGATION LOGIC
@@ -74,15 +81,27 @@
             for (let i = 0; i < 30; i++) { createHeart(); }
         }
 
+        function backToDashboard(currentId) {
+            document.getElementById(currentId).style.display = 'none';
+            document.getElementById('app-dashboard').style.display = 'flex';
+        }
+
+        // ROOM SPECIFIC OPENERS
         function openNotes() {
             document.getElementById('app-dashboard').style.display = 'none';
             document.getElementById('notes-screen').style.display = 'flex';
             displayNotes();
         }
 
-        function backToDashboard() {
-            document.getElementById('notes-screen').style.display = 'none';
-            document.getElementById('app-dashboard').style.display = 'flex';
+        function openGallery() {
+            document.getElementById('app-dashboard').style.display = 'none';
+            document.getElementById('gallery-screen').style.display = 'flex';
+        }
+
+        function openCalendar() {
+            document.getElementById('app-dashboard').style.display = 'none';
+            document.getElementById('calendar-screen').style.display = 'flex';
+            calculateCountdown();
         }
 
         // SECURITY LOGIC
@@ -116,7 +135,7 @@
                 if (currentStep < questions.length) { loadQuestion(); } 
                 else { unlockApp(); }
             } else {
-                document.getElementById('lockout-screen').style.display = 'block';
+                document.getElementById('lockout-screen').style.display = 'flex';
             }
         }
 
@@ -149,6 +168,15 @@
             const list = document.getElementById('notes-list');
             const savedNotes = JSON.parse(localStorage.getItem('ganna_notes') || '[]');
             list.innerHTML = savedNotes.map(note => `<div class="saved-note">${note}</div>`).join('');
+        }
+
+        // COUNTDOWN LOGIC
+        function calculateCountdown() {
+            const anniversary = new Date(2026, 6, 20); // July 20, 2026
+            const today = new Date();
+            const diff = anniversary - today;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById('days-count').innerHTML = days;
         }
     </script>
 </body>
