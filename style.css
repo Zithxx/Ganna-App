@@ -87,6 +87,7 @@ h1 {
     font-size: 1rem;
     cursor: pointer;
     transition: 0.3s;
+    text-align: center;
 }
 
 .menu-item:active {
@@ -133,7 +134,7 @@ h1 {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     gap: 15px;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -150,6 +151,7 @@ h1 {
     width: 100%;
     border-radius: 15px;
     border: 2px solid rgba(255, 255, 255, 0.2);
+    object-fit: cover;
 }
 
 /* --- CALENDAR --- */
@@ -157,9 +159,11 @@ h1 {
     text-shadow: 0 0 15px rgba(255, 117, 195, 0.7);
     font-weight: bold;
     font-family: sans-serif;
+    font-size: 4rem;
+    color: #ff75c3;
 }
 
-/* --- INTRUDER ALERT --- */
+/* --- INTRUDER ALERT (STRICTLY HIDDEN) --- */
 #lockout-screen {
     position: fixed;
     top: 0;
@@ -169,7 +173,7 @@ h1 {
     background: #000;
     color: #ff0000;
     z-index: 10000;
-    display: none; /* Controlled by JS */
+    display: none; /* Initially hidden */
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -180,7 +184,7 @@ h1 {
 
 #lockout-screen h1 {
     font-family: 'Courier New', monospace;
-    font-size: 2rem;
+    font-size: 2.2rem;
     text-shadow: 0 0 10px red;
     -webkit-text-stroke: 0px;
 }
